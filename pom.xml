@@ -49,6 +49,17 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!--Swagger-->
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>3.0.0</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -70,25 +81,6 @@
                         </env>
                     </image>
                 </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.springframework.experimental</groupId>
-                <artifactId>spring-aot-maven-plugin</artifactId>
-                <version>${spring-native.version}</version>
-                <executions>
-                    <execution>
-                        <id>test-generate</id>
-                        <goals>
-                            <goal>test-generate</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate</id>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
