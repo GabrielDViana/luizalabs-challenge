@@ -17,20 +17,6 @@ public interface NoticeController {
     @PostMapping("/notices")
     ResponseEntity<NoticeDTO> createNotice(@Valid @RequestBody NoticeDTO noticeDTO) throws URISyntaxException;
 
-    @ApiOperation(value = "Notice updating")
-    @PutMapping("/notices/{id}")
-    ResponseEntity<NoticeDTO> updateNotice(
-            @PathVariable(value = "id", required = false) final Long id,
-            @Valid @RequestBody NoticeDTO noticeDTO
-    ) throws URISyntaxException;
-
-    @ApiOperation(value = "Notice partial updating")
-    @PatchMapping(value = "/notices/{id}", consumes = "application/merge-patch+json")
-    ResponseEntity<NoticeDTO> partialUpdateNotice(
-            @PathVariable(value = "id", required = false) final Long id,
-            @NotNull @RequestBody NoticeDTO noticeDTO
-    ) throws URISyntaxException;
-
     @ApiOperation(value = "Return all Notices")
     @GetMapping("/notices")
     ResponseEntity<List<NoticeDTO>> getAllNotices();

@@ -38,21 +38,6 @@ public class NoticeServiceImpl implements NoticeService {
     }
 
     @Override
-    public Optional<NoticeDTO> partialUpdate(NoticeDTO noticeDTO) {
-
-        return noticeRepository
-                .findById(noticeDTO.getId())
-                .map(
-                        existingNotice -> {
-                            noticeMapper.partialUpdate(existingNotice, noticeDTO);
-                            return existingNotice;
-                        }
-                )
-                .map(noticeRepository::save)
-                .map(noticeMapper::toDto);
-    }
-
-    @Override
     @Transactional(readOnly = true)
     public List<NoticeDTO> findAll() {
         return noticeRepository.findAll().stream().map(noticeMapper::toDto).collect(Collectors.toCollection(LinkedList::new));

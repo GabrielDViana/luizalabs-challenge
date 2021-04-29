@@ -40,32 +40,6 @@ public class NoticeControllerImpl implements NoticeController {
     }
 
     @Override
-    public ResponseEntity<NoticeDTO> updateNotice(
-            @PathVariable(value = "id", required = false) final Long id,
-            @Valid @RequestBody NoticeDTO noticeDTO
-    ) throws URISyntaxException {
-        this.verifyDataIntegrity(id, noticeDTO);
-
-        NoticeDTO result = noticeService.save(noticeDTO);
-        return ResponseEntity
-                .ok()
-                .body(result);
-    }
-
-    @Override
-    public ResponseEntity<NoticeDTO> partialUpdateNotice(
-            @PathVariable(value = "id", required = false) final Long id,
-            @NotNull @RequestBody NoticeDTO noticeDTO
-    ) throws URISyntaxException {
-        this.verifyDataIntegrity(id, noticeDTO);
-
-        Optional<NoticeDTO> result = noticeService.partialUpdate(noticeDTO);
-
-        return result.map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.noContent().build());
-    }
-
-    @Override
     public ResponseEntity<List<NoticeDTO>> getAllNotices() {
         List<NoticeDTO> notices = noticeService.findAll();
         return ResponseEntity.ok().body(notices);
