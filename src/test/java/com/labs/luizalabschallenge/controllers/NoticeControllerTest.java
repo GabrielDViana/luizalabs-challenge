@@ -128,11 +128,10 @@ class NoticeControllerTest {
     @Test
     @Transactional
     void getAllNotices() throws Exception {
-        // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
         mockMvc
-                .perform(get(ENTITY_API_URL + "?sort=id,desc"))
+                .perform(get(ENTITY_API_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
                 .andExpect(jsonPath("$.[*].id").value(hasItem(notice.getId().intValue())))
@@ -170,17 +169,14 @@ class NoticeControllerTest {
     @Test
     @Transactional
     void deleteNotice() throws Exception {
-        // Initialize the database
         noticeRepository.saveAndFlush(notice);
 
         int databaseSizeBeforeDelete = noticeRepository.findAll().size();
 
-        // Delete the notice
         mockMvc
                 .perform(delete(ENTITY_API_URL_ID, notice.getId()).accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
 
-        // Validate the database contains one less item
         List<Notice> noticeList = noticeRepository.findAll();
         assertThat(noticeList).hasSize(databaseSizeBeforeDelete - 1);
     }
