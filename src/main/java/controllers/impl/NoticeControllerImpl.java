@@ -5,11 +5,13 @@ import exception.BadRequestException;
 import io.swagger.annotations.Api;
 import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import repository.NoticeRepository;
 import services.NoticeService;
 import services.dto.NoticeDTO;
+import services.strategy.NoticeStrategyFactory;
 
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;

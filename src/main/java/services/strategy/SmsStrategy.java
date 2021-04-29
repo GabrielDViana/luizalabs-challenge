@@ -2,15 +2,25 @@ package services.strategy;
 
 import enums.NoticeType;
 import org.springframework.stereotype.Component;
+import services.dto.NoticeDTO;
 
 @Component
-public class SmsStrategy implements NoticeStrategy{
+public class SmsStrategy implements NoticeStrategy {
+
+    private NoticeDTO noticeDTO;
+
     @Override
-    public void sendNotice(){
-        // TODO
+    public void setNoticeDTO(NoticeDTO noticeDTO) {
+        this.noticeDTO = noticeDTO;
     }
+
     @Override
     public NoticeType getNoticeType() {
         return NoticeType.SMS;
+    }
+
+    @Override
+    public void run() {
+        //TODO
     }
 }

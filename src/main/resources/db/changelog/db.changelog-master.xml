@@ -29,4 +29,6 @@
         </createTable>
     </changeSet>
 
+    <include file="/src/main/resources/db/changelog/db.changelog-0001.xml" relativeToChangelogFile="false"/>
+
 </databaseChangeLog>

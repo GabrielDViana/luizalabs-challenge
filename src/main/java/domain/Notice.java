@@ -1,11 +1,14 @@
 package domain;
 
+import enums.NoticeType;
 import lombok.Data;
 import lombok.Getter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.time.Instant;
 import java.time.ZonedDateTime;
@@ -30,5 +33,19 @@ public class Notice implements Serializable {
     @NotNull
     @Column(name = "schedule_date", nullable = false)
     private ZonedDateTime scheduleDate;
+
+    @NotNull
+    @Column(name = "notice_type", nullable = false)
+    private NoticeType noticeType;
+
+    @NotNull
+    @Column(name = "message_content", nullable = false)
+    private String messageContent;
+
+    @NotNull
+    @Email
+    @Size(min = 5, max = 100)
+    @Column(name = "email", nullable = false)
+    private String email;
 
 }

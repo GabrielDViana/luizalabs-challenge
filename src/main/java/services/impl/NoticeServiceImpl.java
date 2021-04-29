@@ -1,17 +1,13 @@
 package services.impl;
 
 import domain.Notice;
-import liquibase.pro.packaged.A;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import repository.NoticeRepository;
 import services.NoticeService;
 import services.dto.NoticeDTO;
 import services.mapper.NoticeMapper;
-import services.strategy.NoticeStrategyFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -25,9 +21,6 @@ public class NoticeServiceImpl implements NoticeService {
     private final NoticeRepository noticeRepository;
 
     private final NoticeMapper noticeMapper;
-
-    @Autowired
-    NoticeStrategyFactory noticeStrategyFactory;
 
     @Override
     public NoticeDTO save(NoticeDTO noticeDTO) {
