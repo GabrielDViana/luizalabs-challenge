@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class LuizalabsChallengeApplication {
     public static final String ACCOUNT_SID = "AC1c009f66925e669230b8948a4912ab39";
-    public static final String AUTH_TOKEN = "";
+    public static final String AUTH_TOKEN = "0b6baab67fba6ef3f9b3a616a94e7652";
     public static void main(String[] args) {
         SpringApplication.run(LuizalabsChallengeApplication.class, args);
         Twilio.init(ACCOUNT_SID, AUTH_TOKEN);

@@ -2,7 +2,6 @@ package services.impl;
 
 import domain.Notice;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -11,7 +10,10 @@ import services.NoticeService;
 import services.dto.NoticeDTO;
 import services.mapper.NoticeMapper;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -45,8 +47,8 @@ public class NoticeServiceImpl implements NoticeService {
 
     @Override
     @Transactional(readOnly = true)
-    public Page<NoticeDTO> findAll(Pageable pageable) {
-        return noticeRepository.findAll(pageable).map(noticeMapper::toDto);
+    public List<NoticeDTO> findAll() {
+        return noticeRepository.findAll().stream().map(noticeMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override

@@ -1,9 +1,9 @@
 package services;
 
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import services.dto.NoticeDTO;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface NoticeService {
@@ -11,7 +11,7 @@ public interface NoticeService {
 
     Optional<NoticeDTO> partialUpdate(NoticeDTO noticeDTO);
 
-    Page<NoticeDTO> findAll(Pageable pageable);
+    List<NoticeDTO> findAll();
 
     Optional<NoticeDTO> findOne(Long id);
 
