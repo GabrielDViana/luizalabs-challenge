@@ -14,5 +14,19 @@
     <property name="datetimeType" value="datetime(6)" dbms="mysql, mariadb"/>
     <property name="datetimeType" value="datetime" dbms="oracle, mssql, postgresql, h2"/>
 
-    <include file="/src/main/resources/config/liquibase/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>
+
+    <changeSet id="00000000000000" author="gabriel">
+        <createTable tableName="notice">
+            <column name="id" type="bigint">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="phone_number" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="schedule_date" type="${datetimeType}">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
 </databaseChangeLog>
