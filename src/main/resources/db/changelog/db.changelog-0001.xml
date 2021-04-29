@@ -7,8 +7,7 @@
                         http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
     <changeSet id="00000000000001-1" author="gabriel">
-        <addColumn schemaName="public"
-                   tableName="notice">
+        <addColumn tableName="notice">
             <column name="notice_type"
                     type="varchar(30)">
                 <constraints nullable="false"/>

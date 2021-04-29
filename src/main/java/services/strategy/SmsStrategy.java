@@ -1,11 +1,16 @@
 package services.strategy;
 
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
 import enums.NoticeType;
 import org.springframework.stereotype.Component;
 import services.dto.NoticeDTO;
 
 @Component
 public class SmsStrategy implements NoticeStrategy {
+
+    private static final String ACCOUNT_SID = "AC1c009f66925e669230b8948a4912ab39";
+    private static final String AUTH_TOKEN = "";
 
     private NoticeDTO noticeDTO;
 
@@ -21,6 +26,12 @@ public class SmsStrategy implements NoticeStrategy {
 
     @Override
     public void run() {
-        //TODO
+        Twilio.init(ACCOUNT_SID, AUTH_TOKEN);
+        // SMS has an Service SID for messaging instead of an phone number
+        Message.creator(
+                new com.twilio.type.PhoneNumber("+55" + this.noticeDTO.getPhoneNumber()),
+                "MG52829b944080ed4010d789055ee2a5f6",
+                this.noticeDTO.getMessageContent())
+                .create();
     }
 }
