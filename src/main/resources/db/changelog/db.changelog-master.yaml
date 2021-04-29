@@ -1,0 +1,2 @@
+liquibase:
+  changeLog: classpath:/db/changelog/db.changelog-master.xml
