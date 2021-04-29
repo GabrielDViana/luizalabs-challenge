@@ -1,10 +1,10 @@
 package com.labs.luizalabschallenge.domain;
 
 import com.labs.luizalabschallenge.enums.NoticeType;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -13,6 +13,7 @@ import java.time.ZonedDateTime;
 
 @Data
 @Entity
+@Builder
 @Table(name = "notice")
 public class Notice implements Serializable {
 
@@ -41,7 +42,6 @@ public class Notice implements Serializable {
     private String messageContent;
 
     @NotNull
-    @Email
     @Size(min = 5, max = 100)
     @Column(name = "email", nullable = false)
     private String email;

@@ -3,7 +3,6 @@ package com.labs.luizalabschallenge.services.dto;
 import com.labs.luizalabschallenge.enums.NoticeType;
 import lombok.Data;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -27,7 +26,6 @@ public class NoticeDTO {
     private String messageContent;
 
     @NotNull
-    @Email
     @Size(min = 5, max = 100)
     private String email;
 }
