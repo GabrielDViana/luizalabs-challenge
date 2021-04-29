@@ -1,35 +1,73 @@
 package com.labs.luizalabschallenge.controllers;
 
-import io.swagger.annotations.ApiOperation;
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import com.labs.luizalabschallenge.exception.BadRequestException;
+import com.labs.luizalabschallenge.repository.NoticeRepository;
+import com.labs.luizalabschallenge.services.NoticeService;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.labs.luizalabschallenge.services.dto.NoticeDTO;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
+@CrossOrigin
+@RestController
+@AllArgsConstructor
 @RequestMapping("/api")
-public interface NoticeController {
+public class NoticeController {
 
-    @RequestMapping("/hello")
-    String home();
+    private final NoticeService noticeService;
 
-    @ApiOperation(value = "Notice creation")
+    private final NoticeRepository noticeRepository;
+
     @PostMapping("/notices")
-    ResponseEntity<NoticeDTO> createNotice(@Valid @RequestBody NoticeDTO noticeDTO) throws URISyntaxException;
+    public ResponseEntity<NoticeDTO> createNotice(@Valid @RequestBody NoticeDTO noticeDTO) throws URISyntaxException {
+        if (noticeDTO.getId() != null) {
+            throw new BadRequestException("A new notice cannot already have an ID");
+        }
+        NoticeDTO result = noticeService.save(noticeDTO);
+        return ResponseEntity
+                .created(new URI("/api/notices/" + result.getId()))
+                .body(result);
+    }
 
-    @ApiOperation(value = "Return all Notices")
     @GetMapping("/notices")
-    ResponseEntity<List<NoticeDTO>> getAllNotices();
+    public ResponseEntity<List<NoticeDTO>> getAllNotices() {
+        List<NoticeDTO> notices = noticeService.findAll();
+        return ResponseEntity.ok().body(notices);
+    }
 
-    @ApiOperation(value = "Return Notice by id")
     @GetMapping("/notices/{id}")
-    ResponseEntity<NoticeDTO> getNotice(@PathVariable Long id);
+    public ResponseEntity<NoticeDTO> getNotice(@PathVariable Long id) {
+        Optional<NoticeDTO> noticeDTO = noticeService.findOne(id);
+        if (!noticeDTO.isPresent()) {
+            throw new BadRequestException("notice not found");
+        }
+        return noticeDTO.map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.noContent().build());
+    }
 
-    @ApiOperation(value = "Delete Notice by id")
     @DeleteMapping("/notices/{id}")
-    ResponseEntity<Void> deleteNotice(@PathVariable Long id);
+    public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
+        noticeService.delete(id);
+        return ResponseEntity
+                .noContent()
+                .build();
+    }
+
+    private void verifyDataIntegrity(final Long id, final NoticeDTO notice) {
+        if (notice.getId() == null || !Objects.equals(id, notice.getId())) {
+            throw new BadRequestException("Invalid notice id");
+        }
+
+        if (!noticeRepository.existsById(id)) {
+            throw new BadRequestException("Entity notice not found");
+        }
+    }
 
 }

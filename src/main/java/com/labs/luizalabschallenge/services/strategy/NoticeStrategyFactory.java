@@ -13,13 +13,11 @@ import com.labs.luizalabschallenge.services.dto.NoticeDTO;
 
 @Setter
 @Getter
-@Component
 public class NoticeStrategyFactory {
     private Map<NoticeType, NoticeStrategy> strategies;
 
     private NoticeDTO noticeDTO;
 
-    @Autowired
     public NoticeStrategyFactory(Set<NoticeStrategy> strategySet) {
         createStrategy(strategySet);
     }

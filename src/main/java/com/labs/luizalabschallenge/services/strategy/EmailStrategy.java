@@ -2,6 +2,9 @@ package com.labs.luizalabschallenge.services.strategy;
 
 import com.sendgrid.*;
 import com.labs.luizalabschallenge.enums.NoticeType;
+import com.sendgrid.helpers.mail.Mail;
+import com.sendgrid.helpers.mail.objects.Content;
+import com.sendgrid.helpers.mail.objects.Email;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Component;
 import com.labs.luizalabschallenge.services.dto.NoticeDTO;

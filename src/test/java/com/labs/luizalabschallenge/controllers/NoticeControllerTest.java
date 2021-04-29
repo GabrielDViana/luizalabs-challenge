@@ -19,7 +19,6 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import com.labs.luizalabschallenge.controllers.impl.NoticeControllerImpl;
 import com.labs.luizalabschallenge.domain.Notice;
 import com.labs.luizalabschallenge.enums.NoticeType;
 import com.labs.luizalabschallenge.repository.NoticeRepository;
@@ -86,7 +85,7 @@ class NoticeControllerTest {
         return mapper;
     }
 
-    public static Notice createEntity(EntityManager em) {
+    public static Notice createEntity() {
         Notice notice = Notice.builder()
                 .phoneNumber(DEFAULT_PHONE_NUMBER)
                 .scheduleDate(DEFAULT_SCHEDULE_DATE)
@@ -99,8 +98,8 @@ class NoticeControllerTest {
 
     @BeforeEach
     public void initTest() {
-        notice = createEntity(em);
-        noticeController = new NoticeControllerImpl(noticeService, noticeRepository);
+        notice = createEntity();
+        noticeController = new NoticeController(noticeService, noticeRepository);
         mockMvc = MockMvcBuilders.standaloneSetup(noticeController).build();
     }
 
@@ -134,6 +133,7 @@ class NoticeControllerTest {
                 .perform(get(ENTITY_API_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
+                .andExpect(jsonPath("$").isArray())
                 .andExpect(jsonPath("$.[*].id").value(hasItem(notice.getId().intValue())))
                 .andExpect(jsonPath("$.[*].phoneNumber").value(hasItem(DEFAULT_PHONE_NUMBER)))
                 .andExpect(jsonPath("$.[*].scheduleDate").value(hasItem(DEFAULT_SCHEDULE_DATE)))
