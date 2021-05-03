@@ -5,11 +5,12 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 function App() {
-  return (
-    <MuiPickersUtilsProvider utils={DateFnsUtils}>
-      <Routes />
-    </MuiPickersUtilsProvider>
-  );
+	return (
+		<MuiPickersUtilsProvider utils={DateFnsUtils}>
+			<Routes />
+		</MuiPickersUtilsProvider>
+	);
 }
+
 
 export default App;
