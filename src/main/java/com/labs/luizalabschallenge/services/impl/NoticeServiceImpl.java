@@ -35,19 +35,20 @@ public class NoticeServiceImpl implements NoticeService {
         Notice notice = noticeMapper.toEntity(noticeDTO);
         notice = noticeRepository.save(notice);
 
-        return noticeMapper.toDto(notice);
+        final var map = noticeMapper.map(notice);
+        return map;
     }
 
     @Override
     @Transactional(readOnly = true)
     public List<NoticeDTO> findAll() {
-        return noticeRepository.findAll().stream().map(noticeMapper::toDto).collect(Collectors.toCollection(LinkedList::new));
+        return noticeRepository.findAll().stream().map(noticeMapper::map).collect(Collectors.toCollection(LinkedList::new));
     }
 
     @Override
     @Transactional(readOnly = true)
     public Optional<NoticeDTO> findOne(Long id) {
-        return noticeRepository.findById(id).map(noticeMapper::toDto);
+        return noticeRepository.findById(id).map(noticeMapper::map);
     }
 
     @Override

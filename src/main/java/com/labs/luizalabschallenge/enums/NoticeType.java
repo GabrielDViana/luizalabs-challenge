@@ -7,6 +7,10 @@ public enum NoticeType {
     PUSH("PUSH");
 
     private String type;
+
+    public String getNoticeDesc(){
+        return this.type;
+    }
     NoticeType(String type) {
         this.type = type;
     }

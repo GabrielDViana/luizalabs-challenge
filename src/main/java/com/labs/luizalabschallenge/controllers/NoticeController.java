@@ -15,6 +15,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+import static org.springframework.web.bind.annotation.RequestMethod.DELETE;
+
 @CrossOrigin
 @RestController
 @AllArgsConstructor
@@ -52,9 +54,13 @@ public class NoticeController {
                 .orElseGet(() -> ResponseEntity.noContent().build());
     }
 
-    @DeleteMapping("/notices/{id}")
-    public ResponseEntity<Void> deleteNotice(@PathVariable Long id) {
-        noticeService.delete(id);
+    @RequestMapping(value = "/notices/{id}", method = DELETE)
+    public ResponseEntity<Void> deleteNotice(@PathVariable("id") Long id) {
+        try {
+            noticeService.delete(id);
+        } catch (BadRequestException e) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity
                 .noContent()
                 .build();
