@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NoticeService from "../services/notice.service";
-import DateTimePicker from 'react-datetime-picker';
+import { TextField } from '@material-ui/core';
+
 
 export default class CreateNotice extends Component {
   constructor(props) {
@@ -92,35 +93,18 @@ export default class CreateNotice extends Component {
               />
             </div>
 
-            {/* <div className="form-group">
-              <label htmlFor="scheduleDate">Date</label>
-              <input
-                type="text"
-                className="form-control"
-                id="scheduleDate"
-                required
-                value={this.state.scheduleDate}
-                onChange={this.onChangeDate}
-                name="scheduleDate"
+            <form className="form-group" noValidate>
+              <TextField
+                id="datetime-local"
+                label="Next appointment"
+                type="datetime-local"
+                defaultValue="2021-05-24T10:30"
+                className="form-group"
+                InputLabelProps={{
+                  shrink: true,
+                }}
               />
-            </div> */}
-
-
-            <div className="form-group">
-              <label htmlFor="scheduleDate">Date</label>
-              <DateTimePicker
-                className="form-control"
-                id="scheduleDate"
-                required
-                name="scheduleDate"
-                value={this.state.scheduleDate}
-                onChange={this.onChangeDate}
-              />
-            </div>
-
-
-
-
+            </form>
 
             <button onClick={this.saveNotice} className="btn btn-success">
               Submit
