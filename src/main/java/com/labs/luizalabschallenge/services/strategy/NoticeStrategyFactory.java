@@ -7,12 +7,12 @@ import java.util.Set;
 import com.labs.luizalabschallenge.enums.NoticeType;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import com.labs.luizalabschallenge.services.dto.NoticeDTO;
+import org.springframework.stereotype.Component;
 
 @Setter
 @Getter
+@Component
 public class NoticeStrategyFactory {
     private Map<NoticeType, NoticeStrategy> strategies;
 

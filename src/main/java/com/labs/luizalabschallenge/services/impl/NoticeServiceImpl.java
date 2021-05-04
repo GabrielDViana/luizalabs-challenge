@@ -1,6 +1,7 @@
 package com.labs.luizalabschallenge.services.impl;
 
 import com.labs.luizalabschallenge.domain.Notice;
+import com.labs.luizalabschallenge.services.schedule.NoticeSchedule;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
@@ -19,16 +20,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class NoticeServiceImpl implements NoticeService {
 
     private final NoticeRepository noticeRepository;
 
     private final NoticeMapper noticeMapper;
 
-    public NoticeServiceImpl(NoticeRepository noticeRepository, NoticeMapper noticeMapper) {
-        this.noticeRepository = noticeRepository;
-        this.noticeMapper = noticeMapper;
-    }
+    private final NoticeSchedule noticeSchedule;
 
     @Override
     public NoticeDTO save(NoticeDTO noticeDTO) {
@@ -36,6 +35,7 @@ public class NoticeServiceImpl implements NoticeService {
         notice = noticeRepository.save(notice);
 
         final var map = noticeMapper.map(notice);
+        noticeSchedule.scheduleRunnableTrigger(map);
         return map;
     }
 

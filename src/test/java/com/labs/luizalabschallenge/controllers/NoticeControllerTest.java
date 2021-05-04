@@ -25,6 +25,7 @@ import com.labs.luizalabschallenge.services.NoticeService;
 import com.labs.luizalabschallenge.services.dto.NoticeDTO;
 import com.labs.luizalabschallenge.services.impl.NoticeServiceImpl;
 import com.labs.luizalabschallenge.services.mapper.NoticeMapper;
+import com.labs.luizalabschallenge.services.schedule.NoticeSchedule;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -68,6 +69,9 @@ class NoticeControllerTest {
 
     private Notice notice;
 
+    @Mock
+    private NoticeSchedule noticeSchedule;
+
     public static Notice createEntity() {
         Notice notice = Notice.builder()
                 .phoneNumber(DEFAULT_PHONE_NUMBER)
@@ -83,7 +87,7 @@ class NoticeControllerTest {
     public void initTest() {
         notice = createEntity();
         noticeMapper = new NoticeMapper();
-        noticeService =  new NoticeServiceImpl(noticeRepository, noticeMapper);
+        noticeService =  new NoticeServiceImpl(noticeRepository, noticeMapper, noticeSchedule);
         noticeController = new NoticeController(noticeService, noticeRepository);
         mockMvc = MockMvcBuilders.standaloneSetup(noticeController).build();
     }
