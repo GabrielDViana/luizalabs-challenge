@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import NoticeService from "../services/notice.service";
 import { TextField } from '@material-ui/core';
-
+import { Input } from '@material-ui/core';
 
 export default class CreateNotice extends Component {
   constructor(props) {
@@ -28,12 +28,15 @@ export default class CreateNotice extends Component {
   }
 
   onChangeDate(e) {
-    console.log(e)
-    // this.setState({
-    //   scheduleDate: e.target.value
-    // });
+    this.setState({
+      scheduleDate: e.target.value
+    });
   }
-
+  onChangeMessageContent(e) {
+    this.setState({
+      messageContent: e.target.value
+    });
+  }
   saveNotice() {
     var data = {
       phone: this.state.phone,
@@ -81,43 +84,31 @@ export default class CreateNotice extends Component {
         ) : (
           <div>
             <div className="form-group">
-              <label htmlFor="phone">Phone</label>
-              <input
-                type="text"
-                className="form-control"
-                id="phone"
-                required
-                value={this.state.phone}
+              <label htmlFor="phone"></label>
+              <TextField required label="Phone"
                 onChange={this.onChangePhone}
-                name="phone"
               />
             </div>
 
             <form className="form-group" noValidate>
               <TextField
                 id="datetime-local"
-                label="Next appointment"
+                label="Notice Date"
                 type="datetime-local"
                 defaultValue="2021-05-24T10:30"
                 className="form-group"
+                onChange={this.onChangeDate}
                 InputLabelProps={{
                   shrink: true,
                 }}
               />
             </form>
 
-            <form className="form-group" noValidate>
-              <TextField
-                id="datetime-local"
-                label="Next appointment"
-                type="datetime-local"
-                defaultValue="2021-05-24T10:30"
-                className="form-group"
-                InputLabelProps={{
-                  shrink: true,
-                }}
+            <div className="form-group">
+              <TextField required label="Content"
+                onChange={this.onChangeMessageContent}
               />
-            </form>
+            </div>
 
             <button onClick={this.saveNotice} className="btn btn-success">
               Submit

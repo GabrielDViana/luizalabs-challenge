@@ -13,7 +13,6 @@ export default class NoticesList extends Component {
       notices: [],
       currentNotice: null,
       currentIndex: -1,
-      searchTitle: ""
     };
   }
 
@@ -21,13 +20,6 @@ export default class NoticesList extends Component {
     this.retrieveNotices();
   }
 
-  onChangeSearchTitle(e) {
-    const searchTitle = e.target.value;
-
-    this.setState({
-      searchTitle: searchTitle
-    });
-  }
 
   retrieveNotices() {
     NoticeService.getAll()
@@ -57,31 +49,23 @@ export default class NoticesList extends Component {
     });
   }
 
+  removeAllNotices() {
+    NoticeService.deleteAll()
+      .then(response => {
+        console.log(response.data);
+        this.refreshList();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+
   render() {
     const { searchTitle, notices, currentNotice, currentIndex } = this.state;
 
     return (
       <div className="list row">
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by phone"
-              value={searchTitle}
-              onChange={this.onChangeSearchTitle}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                type="button"
-                onClick={this.searchTitle}
-              >
-                Search
-              </button>
-            </div>
-          </div>
-        </div>
         <div className="col-md-6">
           <h4>Notices List</h4>
 
@@ -96,7 +80,7 @@ export default class NoticesList extends Component {
                   onClick={() => this.setActiveNotice(notice, index)}
                   key={index}
                 >
-                  {notice.phone}
+                  {notice.title}
                 </li>
               ))}
           </ul>
@@ -108,21 +92,21 @@ export default class NoticesList extends Component {
               <h4>Notice</h4>
               <div>
                 <label>
-                  <strong>Phone:</strong>
+                  <strong>Title:</strong>
                 </label>{" "}
-                {currentNotice.phone}
+                {currentNotice.title}
               </div>
               <div>
                 <label>
-                  <strong>Date:</strong>
+                  <strong>Description:</strong>
                 </label>{" "}
-                {currentNotice.scheduleDate}
+                {currentNotice.description}
               </div>
               <div>
                 <label>
-                  <strong>Message:</strong>
+                  <strong>Status:</strong>
                 </label>{" "}
-                {currentNotice.messageContent}
+                {currentNotice.published ? "Published" : "Pending"}
               </div>
 
               <Link

@@ -16,9 +16,8 @@ export default class Notice extends Component {
         id: null,
         phone: "",
         scheduleDate: "",
-        message: ""
-      },
-      message: ""
+        messageContent: ""
+      }
     };
   }
 
